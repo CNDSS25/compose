@@ -13,3 +13,9 @@ services:
     image: ghcr.io/cndss25/frontend:latest
     ports:
       - 3000:3000
+
+  user-service:
+    pull_policy: always
+    image: ghcr.io/cndss25/user-service:latest
+    ports:
+      - 8000:8000
