@@ -1,2 +1,5 @@
 Docker Compose:
 - docker compose up
+
+Docker:
+- docker image prune -a
