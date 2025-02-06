@@ -19,3 +19,7 @@ services:
     image: ghcr.io/cndss25/user-service:latest
     ports:
       - 8000:8000
+    environment:
+      MONGODB_URL: ${MONGODB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
