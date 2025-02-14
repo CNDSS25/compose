@@ -23,3 +23,13 @@ services:
       MONGODB_URL: ${MONGODB_URL}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+
+  property-service:
+    pull_policy: always
+    image: ghcr.io/cndss25/property-service:latest
+    ports:
+      - 8001:8001
+    environment:
+      MONGODB_URL: ${MONGODB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
