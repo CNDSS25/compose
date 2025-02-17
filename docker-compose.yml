@@ -4,21 +4,37 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 15s
+      timeout: 30s
+      retries: 5
 
   frontend:
     pull_policy: always
     image: ghcr.io/cndss25/frontend:latest
     ports:
-      - 3000:3000
+      - "3000:3000"
+    environment:
+      environment:
+        user_service_url=http://user-service:8000
+        property_service_url=http://property-service:8001
 
   user-service:
     pull_policy: always
     image: ghcr.io/cndss25/user-service:latest
     ports:
-      - 8000:8000
+      - "8000:8000"
     environment:
       MONGODB_URL: ${MONGODB_URL}
       DB_USER: ${DB_USER}
@@ -28,7 +44,7 @@ services:
     pull_policy: always
     image: ghcr.io/cndss25/property-service:latest
     ports:
-      - 8001:8001
+      - "8001:8001"
     environment:
       MONGODB_URL: ${MONGODB_URL}
       DB_USER: ${DB_USER}
